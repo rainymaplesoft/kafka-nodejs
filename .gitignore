@@ -1,0 +1,4 @@
+
+#Ignore thumbnails created by Windows
+node_modules/
+out/
