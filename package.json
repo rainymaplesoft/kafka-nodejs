@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ts-node-dev --respawn --transpile-only producer.ts",
@@ -11,8 +13,6 @@
     "prebuild": "rimraf out",
     "clean": "rimraf out && rimraf node_modules"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "ip": "^1.1.5",
     "kafkajs": "^1.15.0",
