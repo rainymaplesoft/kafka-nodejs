@@ -1,20 +1,24 @@
 import { CompressionTypes, Kafka, Producer } from 'kafkajs'
 import * as ip from 'ip'
 // const msg = process.argv[2]
-import users from './data/users.json'
-import albums from './data/albums.json'
-import photos from './data/photos.json'
+
+import {data} from './data'
 
 const host = process.env.HOST_IP || ip.address()
 let index = 0
 
-// todo: can be configurable
-const _topic = 'Users'
-let _data = users
+const _topic = 'DebugData'
+let _data = data
+
+/*
+  if running inside docker, use the inside port of Kafka, 9092
+  if running as stand alone app, use the outside port of Kafka, 29092
+*/
 
 const kafka = new Kafka({
-  //   brokers: [`${host}:29092`],
-  brokers: [`localhost:29092`],
+  // brokers: [`${host}:29092`],
+  // brokers: [`localhost:29092`],
+  brokers: [`kafka:9092`],
   clientId: 'nodejs-producer',
 })
 
@@ -33,14 +37,15 @@ const sendMessage = () => {
   if (index === _data.length - 1) {
     index = 0
   }
+  const record =_data[index]
   return producer
     .send({
       topic: _topic,
       compression: CompressionTypes.GZIP,
-      messages: createMessage(index, _data[index]),
+      messages: createMessage(index, record),
     })
     .then((data) => {
-      console.log('test---!!!@@@')
+      console.log(record)
       console.log(data)
     })
     .catch((e) => console.error(`[example/producer] ${e.message}`, e))

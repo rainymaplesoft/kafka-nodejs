@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ts-node-dev --respawn --transpile-only producer.ts",
-    "start": "node ./out/producer.js",
+    "start": "ts-node-dev --respawn --transpile-only producer.ts",
+    "prod": "node ./out/producer.js",
     "build": "tsc -p .",
     "prebuild": "rimraf out",
     "clean": "rimraf out && rimraf node_modules"
